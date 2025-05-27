@@ -14,3 +14,11 @@ Clicar em 3 pontos quaisquer da janela que serão armazenados como vértices de 
 
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
+
+# DESAFIO MÓDULO 3:  
+COMO USAR?
+
+Primeiro, selecionar um quadrado. O próximo quadrado clicado será comparado com o primeiro. Se a cor for parecida o suficiente, ambos os quadrados serão removidos da grade e a pontuação será incrementada. Se não, os quadrados selecionados permanecerão e a pontuação será decrementada (se já não estiver zerada). Se o mesmo quadrado for selecionado duas vezes, a jogada será "cancelada" (pontuação permanecerá a mesma e os quadrados continuarão na grade). O jogo continuará até que não existam mais pares, nesse caso, fechando a janela automaticamente e imprimindo no terminal a potunação final do jogador.
+
+FEITO POR:  
+Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
