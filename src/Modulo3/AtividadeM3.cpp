@@ -321,35 +321,6 @@ GLuint createQuad()
     Remove quadrado selecionado e semelhantes */
 void eliminarSimilares(float tolerancia)
 {	
-	/*
-    // Calcula a posição 2D (coluna x e linha y) do quadrado selecionado a partir do índice linear iSelected
-    int x = iSelected % COLS;
-	int y = iSelected / COLS;
-    // Pega a cor C do quadrado selecionado
-	vec3 C = grid[y][x].color;
-    // Marca o quadrado selecionado como eliminado
-	grid[y][x].eliminated = true;
-
-	for (int i = 0; i < ROWS; i++)
-	{
-		for (int j=0; j < COLS; j++)
-		{   // Pega a cor O do quadrado atual
-			vec3 O = grid[i][j].color;
-            // Calcula a distância entre a cor C (selecionada) e a cor O
-			float d = sqrt(pow(C.r-O.r,2) + pow(C.g-O.g,2) + pow(C.b-O.b,2));
-            // Normaliza essa distância dividindo por dMax --> Maior distência possível entre 2 cores
-			float dd = d/dMax;
-            //Se essa distância for <= à tolerancia, considera as cores semelhantes e elimina o quadrado
-			if (dd <= tolerancia)
-			{
-				grid[i][j].eliminated = true;
-			}
-
-		}
-	}
-	iSelected = -1;
-	*/
-
 	int idx1 = selectedIndices[0];
     int idx2 = selectedIndices[1];
 
@@ -391,6 +362,7 @@ void eliminarSimilares(float tolerancia)
 
     selectedCount = 0; // limpa para a próxima comparação
 }
+
 /*	Verificar se ainda existe pelo menos um par de quadrados com cores semelhantes o suficiente (dentro da tolerância)
 	Percorre toda a grade, seleciona primeiro quadrado e verifica os seguintes, fazendo isso consecutivamente
 	Se existir par semelhante, o jogo continua
