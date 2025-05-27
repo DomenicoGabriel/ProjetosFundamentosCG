@@ -70,9 +70,6 @@ struct Quad
 	bool eliminated;
 };
 
-vector<Quad> triangles;
-
-vector<vec3> colors;
 int iColor = 0;
 //int iSelected = -1; 
 int selectedCount = 0; // --> Verificar quantos quadrados foram selecionados
