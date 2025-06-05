@@ -132,7 +132,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Cria a janela
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Cavaleiros e dragao", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Minotauro x party", nullptr, nullptr);
     if (!window)
     {
         cout << "Falha ao criar janela GLFW" << endl;
@@ -161,19 +161,19 @@ int main()
     GLuint quadVAO = createQuad();
 
     // Carrega texturas
-    GLuint backgroundTex = loadTexture("C:/Users/Gabriel/Downloads/background.jpg");
-    GLuint knightTex = loadTexture("C:/Users/Gabriel/Downloads/cavaleiro.png");
-    GLuint knight2Tex = loadTexture("C:/Users/Gabriel/Downloads/cavaleiro2.png");
-    //GLuint ghostTex = loadTexture("C:/Users/Gabriel/Downloads/fantasma.png");
-    GLuint dragTex = loadTexture("C:/Users/Gabriel/Downloads/dragao.png");
+    GLuint backgroundTex = loadTexture("../assets/tex/background.jpg");
+    GLuint knightTex = loadTexture("../assets/sprites/cavaleiro.png");
+    GLuint knight2Tex = loadTexture("../assets/sprites/cavaleiro2.png");
+    GLuint mageTex = loadTexture("../assets/sprites/mago2.png");
+    GLuint minotaurTex = loadTexture("../assets/sprites/minotauro.png");
 
 
     // Cria sprites
     Sprite background(quadVAO, backgroundTex, shaderProgram);
     Sprite knight(quadVAO, knightTex, shaderProgram);
     Sprite knight2(quadVAO, knight2Tex, shaderProgram);
-    //Sprite ghost(quadVAO, ghostTex, shaderProgram);
-    Sprite drag(quadVAO, dragTex, shaderProgram);
+    Sprite mage(quadVAO, mageTex, shaderProgram);
+    Sprite minotaur(quadVAO, minotaurTex, shaderProgram);
 
     // Define projeção ortográfica (para que 0,0 seja canto inferior esquerdo)
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(WIDTH),
@@ -190,11 +190,12 @@ int main()
     
     knight2.setPosition(600.0f, 350.0f);
     knight2.setScale(100.0f, 100.0f); // Cavaleiro pequeno (100x100 pixels)
+	
+    mage.setPosition(700.0f, 300.0f);
+    mage.setScale(100.0f, 100.0f); // Cavaleiro pequeno (100x100 pixels)
 
-    //ghost.setPosition(200.0f, 400.0f);
-    //ghost.setScale(-200.0f, 200.0f); // Cavaleiro pequeno (100x100 pixels)
-    drag.setPosition(200.0f, 350.0f);
-    drag.setScale(-400.0f, 400.0f); // Cavaleiro pequeno (100x100 pixels)
+    minotaur.setPosition(200.0f, 350.0f);
+    minotaur.setScale(200.0f, 200.0f);
 
     // Ativar blending uma única vez, no início (após criar o contexto OpenGL)
     glEnable(GL_BLEND);
@@ -210,8 +211,8 @@ int main()
         background.draw(projection);
         knight.draw(projection);
         knight2.draw(projection);
-        //ghost.draw(projection);
-        drag.draw(projection);
+        mage.draw(projection);
+        minotaur.draw(projection);
 
 
         glfwSwapBuffers(window);
@@ -336,7 +337,8 @@ GLuint loadTexture(const char* path)
     GLuint textureID;
     glGenTextures(1, &textureID);
 
-    stbi_set_flip_vertically_on_load(true);
+    // Por padrão, imagens carregadas com stb_image têm a origem no canto superior esquerdo. O OpenGL espera a origem da imagem no canto inferior esquerdo.
+    stbi_set_flip_vertically_on_load(true); // --> Gira verticalmente a imagem
 
 
     int width, height, nrChannels;
