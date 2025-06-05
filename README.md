@@ -26,9 +26,9 @@ Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
 # DESAFIO MÓDULO 4:  
 COMO USAR?
 
-Contém o código para a criação de uma cena na janela, contendo sprites e um background. Apenas abrir o executável.
+Contém o código para a criação de uma cena na janela, contendo sprites e um background (todos os elementos estão contidos na pasta "assets"). Apenas abrir o executável.
 
-LINKS PARA OS ELEMENTOS:  
+LINKS PARA OS ELEMENTOS:
 - Background: https://br.pinterest.com/pin/352547477073665136/  
 - Cavaleiro 1: https://imgbin.com | https://imgbin.com/png/DdVcZKbq/pixel-knight-pixel-art-knight-in-armor-with-shield-png  
 - Cavaleiro 2: https://imgbin.com | https://imgbin.com/png/n2tUKZvN/pixel-knight-pixel-art-knight-in-full-battle-armor-png#google_vignette
