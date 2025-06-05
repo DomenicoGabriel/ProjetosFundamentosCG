@@ -31,5 +31,6 @@ Contém o código para a criação de uma cena na janela, contendo sprites e um 
 LINKS PARA OS ELEMENTOS:  
 - Background: https://br.pinterest.com/pin/352547477073665136/  
 - Cavaleiro 1: https://imgbin.com | https://imgbin.com/png/DdVcZKbq/pixel-knight-pixel-art-knight-in-armor-with-shield-png  
-- Cavaleiro 2: https://imgbin.com | https://imgbin.com/png/n2tUKZvN/pixel-knight-pixel-art-knight-in-full-battle-armor-png#google_vignette  
-- Dragão: https://opengameart.org/content/dragon-fully-animated
+- Cavaleiro 2: https://imgbin.com | https://imgbin.com/png/n2tUKZvN/pixel-knight-pixel-art-knight-in-full-battle-armor-png#google_vignette
+- Mago: gerado pelo ChatGPT
+- Minotauro: gerado pelo ChatGPT
