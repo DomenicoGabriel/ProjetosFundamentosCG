@@ -161,7 +161,7 @@ int main()
     GLuint quadVAO = createQuad();
 
     // Carrega texturas
-    GLuint backgroundTex = loadTexture("../assets/tex/background.jpg");
+    GLuint backgroundTex = loadTexture("../assets/sprites/background.jpg");
     GLuint knightTex = loadTexture("../assets/sprites/cavaleiro.png");
     GLuint knight2Tex = loadTexture("../assets/sprites/cavaleiro2.png");
     GLuint mageTex = loadTexture("../assets/sprites/mago2.png");
