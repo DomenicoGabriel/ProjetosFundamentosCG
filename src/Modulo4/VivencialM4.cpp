@@ -182,11 +182,11 @@ int main()
     GLuint quadVAO = createQuad();
 
     // Carrega texturas
-    GLuint bgTex1 = loadTexture("C:/Users/Gabriel/Downloads/assetsUsadosFacul/Backgorunds/cartoonForest/PNG/Cartoon_Forest_BG_02/Layers/camada1.png");
-    GLuint bgTex2 = loadTexture("C:/Users/Gabriel/Downloads/assetsUsadosFacul/Backgorunds/cartoonForest/PNG/Cartoon_Forest_BG_02/Layers/camada2.png");
-    GLuint bgTex3 = loadTexture("C:/Users/Gabriel/Downloads/assetsUsadosFacul/Backgorunds/cartoonForest/PNG/Cartoon_Forest_BG_02/Layers/camada3.png");
-    GLuint bgTex4 = loadTexture("C:/Users/Gabriel/Downloads/assetsUsadosFacul/Backgorunds/cartoonForest/PNG/Cartoon_Forest_BG_02/Layers/camada4.png");
-    GLuint bgTex5 = loadTexture("C:/Users/Gabriel/Downloads/assetsUsadosFacul/Backgorunds/cartoonForest/PNG/Cartoon_Forest_BG_02/Layers/camada5.png");
+    GLuint bgTex1 = loadTexture("../assets/sprites/cartoonForest/camada1.png");
+    GLuint bgTex2 = loadTexture("../assets/sprites/cartoonForest/camada2.png");
+    GLuint bgTex3 = loadTexture("../assets/sprites/cartoonForest/camada3.png");
+    GLuint bgTex4 = loadTexture("../assets/sprites/cartoonForest/camada4.png");
+    GLuint bgTex5 = loadTexture("../assets/sprites/cartoonForest/camada5.png");
     GLuint minotaurTex = loadTexture("../assets/sprites/minotauro.png");
 
 
