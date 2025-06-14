@@ -34,3 +34,15 @@ LINKS PARA OS ELEMENTOS:
 - Cavaleiro 2: https://imgbin.com | https://imgbin.com/png/n2tUKZvN/pixel-knight-pixel-art-knight-in-full-battle-armor-png#google_vignette
 - Mago: gerado pelo ChatGPT
 - Minotauro: gerado pelo ChatGPT
+
+# ATIVIDADE VIVENCIAL MÓDULO 4:  
+COMO USAR?
+
+Utilize as setas esquerda e direita do teclado para controlar a direção do movimento do personagem.
+
+ELEMENTOS:  
+- Background de floresta dado no material do Moodle
+- Minotauro anteriormente utilizado
+
+FEITO POR:  
+Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
