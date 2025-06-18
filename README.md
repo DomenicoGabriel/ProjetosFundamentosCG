@@ -46,3 +46,12 @@ ELEMENTOS:
 
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
+
+# DESAFIO MÓDULO 4:  
+COMO USAR?
+
+Utilizando as teclas WASD, pode-se controlar o movimento do personagem. Existem limites para o quanto o personagem pode se mover tanto para a parte superior quanto a parte inferior do mapa relativos aos seus elementos visuais (parede e penhasco). Para o personagem não sair da janela pela esquerda e direita foi posto um limite que, quando alcançado, quem passa a se mover é o fundo, dando a impressão de que o personagem continua sua caminhada.
+
+ELEMENTOS:
+- Background utilizado no desafio do módulo 4: https://br.pinterest.com/pin/352547477073665136/
+- Spritesheet do orc (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
