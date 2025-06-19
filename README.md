@@ -28,7 +28,7 @@ COMO USAR?
 
 Contém o código para a criação de uma cena na janela, contendo sprites de 4 personagens e um background (todos os elementos estão contidos na pasta "assets"). Apenas abrir o executável.
 
-LINKS PARA OS ELEMENTOS:
+ELEMENTOS UTILIZADOS:
 - Background: https://br.pinterest.com/pin/352547477073665136/  
 - Cavaleiro 1: https://imgbin.com | https://imgbin.com/png/DdVcZKbq/pixel-knight-pixel-art-knight-in-armor-with-shield-png  
 - Cavaleiro 2: https://imgbin.com | https://imgbin.com/png/n2tUKZvN/pixel-knight-pixel-art-knight-in-full-battle-armor-png#google_vignette
@@ -40,18 +40,39 @@ COMO USAR?
 
 Utilize as setas esquerda e direita do teclado para controlar a direção do movimento do personagem.
 
-ELEMENTOS:  
+ELEMENTOS UTILIZADOS:  
 - Background de floresta dado no material do Moodle
 - Minotauro anteriormente utilizado
 
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
 
-# DESAFIO MÓDULO 4:  
+# DESAFIO MÓDULO 5:  
 COMO USAR?
 
 Utilizando as teclas WASD, pode-se controlar o movimento do personagem. Existem limites para o quanto o personagem pode se mover tanto para a parte superior quanto a parte inferior do mapa relativos aos seus elementos visuais (parede e penhasco). Para o personagem não sair da janela pela esquerda e direita foi posto um limite que, quando alcançado, quem passa a se mover é o fundo, dando a impressão de que o personagem continua sua caminhada.
 
-ELEMENTOS:
+ELEMENTOS UTILIZADOS:
 - Background utilizado no desafio do módulo 4: https://br.pinterest.com/pin/352547477073665136/
 - Spritesheet do orc (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
+
+# ATIVIDADE VIVENCIAL MÓDULO 5:  
+COMO USAR?
+
+Utilizando as teclas WASD, pode-se controlar o movimento do personagem nas 4 direções principais e com QEZX as 4 diagonais. O código apresenta um mapa 3x3 representando uma caverna vulcânica cuja lava não pode ser tocada, forçando o personagem a se movimentar apenas no caminho de pedras.
+
+ELEMENTOS UTILIZADOS:
+- Backgorund caverna: https://br.pinterest.com/pin/17310779813257161/
+- Tileset dado no material do Moodle
+- Spritesheet do orc utilizado anteriormente (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
+
+Abaixo seguem prints da execução do programa mostrando que é possível se mexer em todas as direções:
+
+PRINT 1  
+![print1](https://github.com/user-attachments/assets/4134faa9-ae21-4a22-8612-6a371be1db42)
+
+PRINT 2  
+![print2](https://github.com/user-attachments/assets/cef23efb-fd7a-48e6-ad7e-eebe43b7f620)
+
+FEITO POR:  
+Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
