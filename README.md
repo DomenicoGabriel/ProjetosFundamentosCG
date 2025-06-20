@@ -56,7 +56,7 @@ ELEMENTOS UTILIZADOS:
 - Background utilizado no desafio do módulo 4: https://br.pinterest.com/pin/352547477073665136/
 - Spritesheet do orc (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
 
-# ATIVIDADE VIVENCIAL MÓDULO 5:  
+# ATIVIDADE VIVENCIAL MÓDULO 6:  
 COMO USAR?
 
 Utilizando as teclas WASD, pode-se controlar o movimento do personagem nas 4 direções principais e com QEZX as 4 diagonais. O código apresenta um mapa 3x3 representando uma caverna vulcânica cuja lava não pode ser tocada, forçando o personagem a se movimentar apenas no caminho de pedras.
