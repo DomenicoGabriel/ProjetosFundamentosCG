@@ -37,21 +37,38 @@ const GLuint WIDTH = 1000, HEIGHT = 700;
 3, 2, 3
 };*/
 int matrizTexturas[15][15] = {
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    2, 2, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
+    2, 2, 2, 2, 4, 4, 5, 4, 4, 5, 5, 5, 5, 4, 4,
+    2, 2, 2, 4, 2, 4, 5, 4, 5, 5, 4, 4, 4, 4, 4,
+    2, 3, 2, 2, 4, 4, 5, 4, 4, 4, 5, 5, 5, 4, 4,
+    2, 3, 3, 2, 2, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
+    3, 2, 2, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    2, 3, 3, 2, 3, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5,
+    3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 5, 5, 5, 5, 5,
+    2, 3, 3, 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 5, 5,
+    3, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 5, 5, 2, 5,
+    3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 2, 5,
+    3, 3, 2, 3, 2, 3, 2, 3, 3, 3, 2, 2, 3, 2, 2,
+    2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,
+    2, 2, 3, 2, 2, 3, 3, 2, 3, 3, 3, 3, 3, 2, 2
+};
+int matrizTraps[15][15] = {
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1,
+    1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0,
+    1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
 };
 
 // Matriz que armazena a informação da posição geográfica X de cada tile 
@@ -83,11 +100,15 @@ int matrizPosX[15][15] = {
     520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780, 800
 };
 
-int matrizTrapPosX[3][3] = {
-    240, 260, 280,
-    260, 280, 300,
-    280, 300, 320
+int matrizTrapPosX[5][10] = {
+    360, 380, 400, 440, 460, 480, 520, 540, 540, 560,
+    440, 480, 580, 600, 340, 400, 420, 600, 620, 440,
+    500, 520, 540, 560, 460, 560, 420, 580, 600, 560,
+    580, 600, 700, 540, 640, 660, 680, 720, 560, 680,
+    700, 740, 500, 520, 640, 660, 680, 760, 540, 780
 };
+
+
 // Matriz que armazena a informação da posição geográfica Y de cada tile
 /*int matrizPosY[3][3] = {
 300, 350, 400,
@@ -117,14 +138,18 @@ int matrizPosY[15][15] = {
     220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360
 };
 
-int matrizTrapPosY[3][3] = {
-    360, 370, 380,
-    350, 360, 370,
-    340, 350, 360
+int matrizTrapPosY[5][10] = {
+    420, 430, 440, 460, 470, 480, 480, 490, 470, 480,
+    400, 400, 450, 460, 310, 340, 350, 440, 450, 340,
+    370, 380, 390, 400, 310, 360, 270, 350, 360, 320,
+    330, 340, 390, 290, 340, 350, 360, 380, 280, 340, 
+    350, 370, 230, 240, 300, 310, 320, 360, 230, 350
 };
 
 bool keyW = false, keyA = false, keyS = false, keyD = false;
 bool keyQ = false, keyE = false, keyZ = false, keyX = false;
+
+bool trapActive = true;
 
 // Configuração do spritesheet:
 int nAnimations = 4; // número de linhas (animações)
@@ -311,7 +336,9 @@ class CharacterController : public Sprite
         float timeSinceLastFrame = 0.0f;
 
         // Posição inicial na matriz
-        int currentLinha = 7, currentColuna = 0;
+        int currentLinha = 0, currentColuna = 0;
+
+        bool estaVivo = true;
 
     public:
         CharacterController(GLuint vao, GLuint textureID, GLuint shaderID)
@@ -326,6 +353,10 @@ class CharacterController : public Sprite
 
         int getCurrentColuna(){
             return currentColuna;
+        }
+
+        bool getEstaVivo(){
+            return estaVivo;
         }
 
         void updateMovement()
@@ -382,11 +413,29 @@ class CharacterController : public Sprite
             if (currentColuna < 0) currentColuna = 0;
             if (currentColuna > 14) currentColuna = 14;
 
-            // Checa se a textura do tile para o qual se moveu é a textura 3 (lava). Se sim, desfaz ação, pois não é permitido 
+            /*// Checa se a textura do tile para o qual se moveu é a textura 3 (lava). Se sim, desfaz ação, pois não é permitido 
             if(matrizTexturas[currentLinha][currentColuna] == 3){
                 currentColuna = lCurrentX;
                 currentLinha = lCurrentY;
             }
+
+            // Checa se a textura do tile para o qual se moveu é a textura 5 (água). Se sim, desfaz ação, pois não é permitido 
+            if(matrizTexturas[currentLinha][currentColuna] == 5){
+                currentColuna = lCurrentX;
+                currentLinha = lCurrentY;
+            }*/
+            if(matrizTexturas[currentLinha][currentColuna] == 3 || matrizTexturas[currentLinha][currentColuna] == 5)
+            {
+                currentColuna = lCurrentX;
+                currentLinha = lCurrentY;
+            }
+
+            if(matrizTraps[currentLinha][currentColuna] == 1 && trapActive == true)
+            {
+                estaVivo = false;
+            }
+
+
 
             // Resetar flags
             keyW = keyA = keyS = keyD = keyQ = keyE = keyZ = keyX = false;
@@ -429,7 +478,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Cria a janela
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Orc Controlado", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Prova Grau B", nullptr, nullptr);
     if (!window)
     {
         cout << "Falha ao criar janela GLFW" << endl;
@@ -458,14 +507,37 @@ int main()
     GLuint quadVAO = createQuad();
 
     // Carrega texturas
-    GLuint backgroundTex = loadTexture("../assets/sprites/lavaCave.jpg");
+    GLuint backgroundTex = loadTexture("../assets/sprites/cave7.png");
     GLuint orcTex = loadTexture("../assets/sprites/orc3_walk_full.png");
+
     GLuint tileTex = loadTexture("../assets/tilesets/tileset2.png");
-    GLuint trapTex = loadTexture("../assets/tilesets/trapZerada-removebg-preview.png");
+    GLuint trapOnTex = loadTexture("../assets/tilesets/trapOn.png");
+    GLuint trapOffTex = loadTexture("../assets/tilesets/trapOff.png");
+
+    GLuint chaveCongeladaTex = loadTexture("../assets/sprites/chaveCongelada.png");
+    GLuint chaveLavaTex = loadTexture("../assets/sprites/chaveLava.png");
+
+    GLuint cadeadoCongeladoTex = loadTexture("../assets/sprites/cadeadoCongelado.png");
+    GLuint cadeadoLavaTex = loadTexture("../assets/sprites/cadeadoLava.png");
+
+    GLuint portaFinalTex = loadTexture("../assets/sprites/portaFinal.png");
+    GLuint portaFinalFechadaTex = loadTexture("../assets/sprites/portaFinalFechada.png");
 
     // Cria sprites
     Sprite background(quadVAO, backgroundTex, shaderProgram);
     CharacterController orc(quadVAO, orcTex, shaderProgram);
+
+    Sprite chaveCongelada(quadVAO, chaveCongeladaTex, shaderProgram);
+    Sprite chaveLava(quadVAO, chaveLavaTex, shaderProgram);
+
+    Sprite cadeadoCongelado(quadVAO, cadeadoCongeladoTex, shaderProgram);
+    Sprite cadeadoLava(quadVAO, cadeadoLavaTex, shaderProgram);
+
+    Sprite portaFinal(quadVAO, portaFinalTex, shaderProgram);
+    Sprite portaFinalFechada(quadVAO, portaFinalFechadaTex, shaderProgram);
+
+    Sprite trapOn(quadVAO, trapOnTex, shaderProgram);
+    Sprite trapOff(quadVAO, trapOffTex, shaderProgram);
 
     int lNumTex;
     Sprite tileMatrix[15][15]; // Matriz onde os tiles serão criados e armazenados
@@ -487,10 +559,10 @@ int main()
         }
     }
 
-    Sprite trapMatrix[3][3]; // Matriz onde os tiles serão criados e armazenados
-    for(int row=0; row<3; row++){
-        for(int col=0; col<3; col++){
-            trapMatrix[row][col].inicializa(quadVAO, trapTex, shaderProgram);
+    Sprite trapOnMatrix[5][10]; // Matriz onde os tiles serão criados e armazenados
+    for(int row=0; row<5; row++){
+        for(int col=0; col<10; col++){
+            trapOnMatrix[row][col].inicializa(quadVAO, trapOnTex, shaderProgram);
 
             // Define fração da textura
             float texW = 1.0f / 1; // 7 texturas
@@ -498,11 +570,30 @@ int main()
 
             //lNumTex = matrizTexturas[row][col];
 
-            trapMatrix[row][col].setTexOffset(0.0f, 0.0f);  // Deslocamento na linha
-            trapMatrix[row][col].setTexScale(texW, texH);
+            trapOnMatrix[row][col].setTexOffset(0.0f, 0.0f);  // Deslocamento na linha
+            trapOnMatrix[row][col].setTexScale(texW, texH);
 
-            trapMatrix[row][col].setPosition(matrizTrapPosX[row][col], matrizTrapPosY[row][col]);
-            trapMatrix[row][col].setScale(40.0f, 20.0f); // Tamanho do quad na tela
+            trapOnMatrix[row][col].setPosition(matrizTrapPosX[row][col], matrizTrapPosY[row][col]);
+            trapOnMatrix[row][col].setScale(40.0f, 20.0f); // Tamanho do quad na tela
+        }
+    }
+
+    Sprite trapOffMatrix[5][10]; // Matriz onde os tiles serão criados e armazenados
+    for(int row=0; row<5; row++){
+        for(int col=0; col<10; col++){
+            trapOffMatrix[row][col].inicializa(quadVAO, trapOffTex, shaderProgram);
+
+            // Define fração da textura
+            float texW = 1.0f / 1; // 7 texturas
+            float texH = 1.0f / 1; // Só tem uma linha
+
+            //lNumTex = matrizTexturas[row][col];
+
+            trapOffMatrix[row][col].setTexOffset(0.0f, 0.0f);  // Deslocamento na linha
+            trapOffMatrix[row][col].setTexScale(texW, texH);
+
+            trapOffMatrix[row][col].setPosition(matrizTrapPosX[row][col], matrizTrapPosY[row][col]);
+            trapOffMatrix[row][col].setScale(40.0f, 20.0f); // Tamanho do quad na tela
         }
     }
 
@@ -516,6 +607,27 @@ int main()
     background.setPosition(WIDTH / 2.0f, HEIGHT / 2.0f);
     background.setScale(WIDTH, HEIGHT);
 
+    chaveCongelada.setPosition(440.0f, 420.0f);
+    chaveCongelada.setScale(30.0f, 30.0f);
+
+    chaveLava.setPosition(520.0f, 220.0f);
+    chaveLava.setScale(30.0f, 30.0f);
+
+    cadeadoCongelado.setPosition(850.0f, 420.0f);
+    cadeadoCongelado.setScale(30.0f, 30.0f);
+
+    cadeadoLava.setPosition(850.0f, 390.0f);
+    cadeadoLava.setScale(30.0f, 30.0f);
+
+    portaFinal.setPosition(800.0f, 405.0f);
+    portaFinal.setScale(100.0f, 110.0f);
+
+    portaFinalFechada.setPosition(800.0f, 405.0f);
+    portaFinalFechada.setScale(100.0f, 110.0f);
+
+    trapOn.setScale(40.0f, 20.0f);
+    
+
     //orc.setPosition(WIDTH / 2.0f, HEIGHT / 2.0f);
     orc.setScale(60.0f, 60.0f);
     
@@ -526,12 +638,19 @@ int main()
 
     // Controle de tempo para deltaTime
     float lastFrameTime = 0.0f;
+    float trapStartTime = glfwGetTime();
+
+    bool chaveAtiva = true;
+    bool chaveAtiva1 = true;
+    int contadorChave = 0;
 
     while (!glfwWindowShouldClose(window))
     {
         float currentTime = glfwGetTime();
         float deltaTime = currentTime - lastFrameTime;
         lastFrameTime = currentTime;
+
+        float elapsed = glfwGetTime() - trapStartTime;
 
         // Atualiza estado das teclas
         bool keyW = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
@@ -553,6 +672,11 @@ int main()
         // Desenha background com offset atualizado
         background.draw(projection);
 
+        portaFinalFechada.draw(projection);
+
+        if(contadorChave == 2) portaFinal.draw(projection);
+        
+
         //tile.draw(projection);
         for(int row=0; row<15; row++){
             for(int col=0; col<15; col++){
@@ -560,9 +684,22 @@ int main()
             }
         }
 
-        for(int row=0; row<3; row++){
-            for(int col=0; col<3; col++){
-                trapMatrix[row][col].draw(projection);
+        
+        if (trapActive && elapsed >= 1.0f) {
+            trapActive = false;
+            trapStartTime = glfwGetTime(); // reinicia tempo
+        }
+        else if (!trapActive && elapsed >= 2.0f) {
+            trapActive = true;
+            trapStartTime = glfwGetTime(); // reinicia tempo
+        }
+
+        for(int row=0; row<5; row++){
+            for(int col=0; col<10; col++){
+                if (trapActive)
+                    trapOnMatrix[row][col].draw(projection);
+                else
+                    trapOffMatrix[row][col].draw(projection);
             }
         }
 
@@ -570,6 +707,44 @@ int main()
         orc.updateMovement();
         orc.setPosition(matrizPosX[orc.getCurrentLinha()][orc.getCurrentColuna()], matrizPosY[orc.getCurrentLinha()][orc.getCurrentColuna()]+5);
         orc.updateAnimation(deltaTime);
+        
+        if(orc.getEstaVivo() == false)
+        {
+            cout << "Fim de jogo! Voce pisou em uma armadilha!\n";
+        	break;
+        }
+
+        if(chaveAtiva)
+        {
+            chaveCongelada.draw(projection);
+            cadeadoCongelado.draw(projection);
+        }
+
+        if(chaveAtiva1)
+        {
+            chaveLava.draw(projection);
+            cadeadoLava.draw(projection);
+        }
+
+        if((orc.getCurrentLinha() == 2) && (orc.getCurrentColuna() == 8 && chaveAtiva))
+        {
+            chaveAtiva = false;
+            contadorChave++;
+        } 
+        if((orc.getCurrentLinha() == 14) && (orc.getCurrentColuna() == 0 && chaveAtiva1))
+        {
+            chaveAtiva1 = false;
+            contadorChave++;
+        }
+
+        if(orc.getCurrentLinha() >= 12 && orc.getCurrentColuna() == 14)
+        {
+            if(contadorChave == 2)
+            {
+                cout << "Fim de jogo! Parabens por ter completado a fase!\n";
+        	    break;
+            }
+        }
 
         // Desenha personagem
         orc.draw(projection);
