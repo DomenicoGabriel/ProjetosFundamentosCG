@@ -76,3 +76,19 @@ PRINT 2
 
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
+
+# ATIVIDADE VIVENCIAL MÓDULO 6:  
+COMO USAR?
+
+Utilizando as teclas WASD, pode-se controlar o movimento do personagem nas 4 direções principais e com QEZX as 4 diagonais. O código apresenta um mapa 15x15 representando uma caverna com 2 biomas (congelado e vulcânico), não podendo tocar na lava e na água, forçando o personagem a se movimentar apenas no caminho de pedras e gelo. O objetivo do jogo é alcançar o portão no fim do mapa que inicialmente está trancado. Para destrancá-lo, é necessário pegar as 2 chaves azul e vermelha localizadas em ambos os biomas. Umas vez aberto, chegar em uma das 3 casas finais fechará o jogo e imprimirá uma mensagem de vitória no terminal. Existem armadilhas espalhadas pelo mapa, servindo de obstáculo para o jogador. Elas ativam e desativam, bastando apenas calcular o momento certo para passar por elas. Uma vez que pise em uma armadilha ativada, o jogo fechará e uma mensagem de derrota é impressa no terminal.
+
+ELEMENTOS UTILIZADOS:
+- Background da caverna congelada e vulcânica: gerado pelo ChatGPT
+- Tileset dado no material do Moodle
+- Chaves: geradas pelo ChatGPT
+- Cadeados: gerados pelo ChatGPT
+- Armadilha: gerada pelo ChatGPT
+- Spritesheet do orc utilizado anteriormente (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
+
+FEITO POR:  
+Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
