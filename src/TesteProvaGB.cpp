@@ -20,155 +20,6 @@ using namespace std;
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-// Protótipo de funções callback:
-void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode); // --> Tratar múltiplas teclas
-
-GLuint loadTexture(const char* path); // --> Carregar textura
-GLuint createQuad(); // --> Criar quadrado
-int setupShader(); // --> Retornar o identificador do programa de shader
-
-
-const GLuint WIDTH = 1000, HEIGHT = 700;
-
-// Matriz que armazena a informação das texturas de cada tile
-/*int matrizTexturas[3][3] = {
-3, 2, 2,
-2, 2, 3,
-3, 2, 3
-};*/
-int matrizTexturas[15][15] = {
-    2, 2, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
-    2, 2, 2, 2, 4, 4, 5, 4, 4, 5, 5, 5, 5, 4, 4,
-    2, 2, 2, 4, 2, 4, 5, 4, 5, 5, 4, 4, 4, 4, 4,
-    2, 3, 2, 2, 4, 4, 5, 4, 4, 4, 5, 5, 5, 4, 4,
-    2, 3, 3, 2, 2, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
-    3, 2, 2, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    2, 3, 3, 2, 3, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5,
-    3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 5, 5, 5, 5, 5,
-    2, 3, 3, 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 5, 5,
-    3, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 5, 5, 2, 5,
-    3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 2, 5,
-    3, 3, 2, 3, 2, 3, 2, 3, 3, 3, 2, 2, 3, 2, 2,
-    2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,
-    2, 2, 3, 2, 2, 3, 3, 2, 3, 3, 3, 3, 3, 2, 2
-};
-int matrizTraps[15][15] = {
-    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1,
-    1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-    1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0,
-    1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0,
-    0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
-};
-
-// Matriz que armazena a informação da posição geográfica X de cada tile 
-/*int matrizPosX[3][3] = {
-200, 300, 400,
-300, 400, 500,
-400, 500, 600,
-};*/
-/*int matrizPosX[3][3] = {
-460, 480, 500,
-480, 500, 520,
-500, 520, 540
-};*/
-int matrizPosX[15][15] = {
-    240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520,
-    260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540,
-    280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560,
-    300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580,
-    320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600,
-    340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620,
-    360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640,
-    380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660,
-    400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680,
-    420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700,
-    440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720,
-    460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740,
-    480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760,
-    500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780,
-    520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780, 800
-};
-
-int matrizTrapPosX[5][10] = {
-    360, 380, 400, 440, 460, 480, 520, 540, 540, 560,
-    440, 480, 580, 600, 340, 400, 420, 600, 620, 440,
-    500, 520, 540, 560, 460, 560, 420, 580, 600, 560,
-    580, 600, 700, 540, 640, 660, 680, 720, 560, 680,
-    700, 740, 500, 520, 640, 660, 680, 760, 540, 780
-};
-
-
-// Matriz que armazena a informação da posição geográfica Y de cada tile
-/*int matrizPosY[3][3] = {
-300, 350, 400,
-250, 300, 350,
-200, 250, 300
-};*/
-/*int matrizPosY[3][3] = {
-350, 360, 370,
-340, 350, 360,
-330, 340, 350
-};*/
-int matrizPosY[15][15] = {
-    360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500,
-    350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490,
-    340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480,
-    330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470,
-    320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460,
-    310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450,
-    300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440,
-    290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430,
-    280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420,
-    270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410,
-    260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400,
-    250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390,
-    240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380,
-    230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370,
-    220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360
-};
-
-int matrizTrapPosY[5][10] = {
-    420, 430, 440, 460, 470, 480, 480, 490, 470, 480,
-    400, 400, 450, 460, 310, 340, 350, 440, 450, 340,
-    370, 380, 390, 400, 310, 360, 270, 350, 360, 320,
-    330, 340, 390, 290, 340, 350, 360, 380, 280, 340, 
-    350, 370, 230, 240, 300, 310, 320, 360, 230, 350
-};
-
-bool keyW = false, keyA = false, keyS = false, keyD = false;
-bool keyQ = false, keyE = false, keyZ = false, keyX = false;
-
-bool trapActive = true;
-
-// Configuração do spritesheet:
-int nAnimations = 4; // número de linhas (animações)
-int nFrames = 6;     // número de colunas (frames por animação)
-
-float ds = 1.0f / nFrames;
-float dt = 1.0f / nAnimations;
-
-// Configuração do tile
-//int tileQueue = 1;
-int tileTextures = 7; // número de texturas
-
-// Estado atual da animação
-int iAnimation = 0; // linha atual
-int iFrame = 0;     // frame atual na linha
-
-float timeSinceLastFrame = 0.0f;
-float frameTime = 1.0f / 12.0f; // controla a velocidade da animação (12 FPS)
-
 // Código fonte do Vertex Shader (em GLSL): ainda hardcoded
 const GLchar *vertexShaderSource = R"(
 #version 400
@@ -206,6 +57,125 @@ void main()
 }
 )";
 
+// ==PROTÓTIPOS DAS FUNÇÕES==
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode); // --> Tratar múltiplas teclas
+int setupShader(); // --> Retornar o identificador do programa de shader
+GLuint createQuad(); // --> Criar quadrado
+GLuint loadTexture(const char* path); // --> Carregar textura
+
+// ==VARIÁVEIS E CONSTANTES GLOBAIS==
+const GLuint WIDTH = 1000, HEIGHT = 700;
+
+bool keyW = false, keyA = false, keyS = false, keyD = false;
+bool keyQ = false, keyE = false, keyZ = false, keyX = false;
+
+bool trapActive = true;
+
+// Configuração do spritesheet:
+int nAnimations = 4; // número de linhas (animações)
+int nFrames = 6;     // número de colunas (frames por animação)
+float ds = 1.0f / nFrames;
+float dt = 1.0f / nAnimations;
+
+// Estado atual da animação
+int iAnimation = 0; // linha atual
+int iFrame = 0;     // frame atual na linha
+float timeSinceLastFrame = 0.0f;
+float frameTime = 1.0f / 12.0f; // controla a velocidade da animação (12 FPS)
+
+// Configuração do tile
+int tileTextures = 7; // número de texturas
+
+// ==MATRIZES==
+// Matriz que armazena a informação das texturas de cada tile
+int matrizTexturas[15][15] = {
+    2, 2, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
+    2, 2, 2, 2, 4, 4, 5, 4, 4, 5, 5, 5, 5, 4, 4,
+    2, 2, 2, 4, 2, 4, 5, 4, 5, 5, 4, 4, 4, 4, 4,
+    2, 3, 2, 2, 4, 4, 5, 4, 4, 4, 5, 5, 5, 4, 4,
+    2, 3, 3, 2, 2, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4,
+    3, 2, 2, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    2, 3, 3, 2, 3, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5,
+    3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 5, 5, 5, 5, 5,
+    2, 3, 3, 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 5, 5,
+    3, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 5, 5, 2, 5,
+    3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 2, 2, 2, 5,
+    3, 3, 2, 3, 2, 3, 2, 3, 3, 3, 2, 2, 3, 2, 2,
+    2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,
+    2, 2, 3, 2, 2, 3, 3, 2, 3, 3, 3, 3, 3, 2, 2
+};
+int matrizTraps[15][15] = {
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1,
+    1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0,
+    1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+};
+
+// Matriz que armazena a informação da posição geográfica X de cada tile 
+int matrizPosX[15][15] = {
+    240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520,
+    260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540,
+    280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560,
+    300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580,
+    320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600,
+    340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620,
+    360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640,
+    380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660,
+    400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680,
+    420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700,
+    440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720,
+    460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740,
+    480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760,
+    500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780,
+    520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780, 800
+};
+int matrizTrapPosX[5][10] = {
+    360, 380, 400, 440, 460, 480, 520, 540, 540, 560,
+    440, 480, 580, 600, 340, 400, 420, 600, 620, 440,
+    500, 520, 540, 560, 460, 560, 420, 580, 600, 560,
+    580, 600, 700, 540, 640, 660, 680, 720, 560, 680,
+    700, 740, 500, 520, 640, 660, 680, 760, 540, 780
+};
+
+// Matriz que armazena a informação da posição geográfica Y de cada tile
+int matrizPosY[15][15] = {
+    360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500,
+    350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490,
+    340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480,
+    330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470,
+    320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460,
+    310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450,
+    300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440,
+    290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430,
+    280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420,
+    270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410,
+    260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400,
+    250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390,
+    240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380,
+    230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370,
+    220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360
+};
+int matrizTrapPosY[5][10] = {
+    420, 430, 440, 460, 470, 480, 480, 490, 470, 480,
+    400, 400, 450, 460, 310, 340, 350, 440, 450, 340,
+    370, 380, 390, 400, 310, 360, 270, 350, 360, 320,
+    330, 340, 390, 290, 340, 350, 360, 380, 280, 340, 
+    350, 370, 230, 240, 300, 310, 320, 360, 230, 350
+};
+
+// ==CLASSES==
 class Sprite
 {
     protected:
@@ -317,7 +287,6 @@ class Sprite
             glUseProgram(0);
         }
 };
-
 class CharacterController : public Sprite
 {
     private:
@@ -413,17 +382,7 @@ class CharacterController : public Sprite
             if (currentColuna < 0) currentColuna = 0;
             if (currentColuna > 14) currentColuna = 14;
 
-            /*// Checa se a textura do tile para o qual se moveu é a textura 3 (lava). Se sim, desfaz ação, pois não é permitido 
-            if(matrizTexturas[currentLinha][currentColuna] == 3){
-                currentColuna = lCurrentX;
-                currentLinha = lCurrentY;
-            }
-
-            // Checa se a textura do tile para o qual se moveu é a textura 5 (água). Se sim, desfaz ação, pois não é permitido 
-            if(matrizTexturas[currentLinha][currentColuna] == 5){
-                currentColuna = lCurrentX;
-                currentLinha = lCurrentY;
-            }*/
+            // Checa se a textura do tile para o qual se moveu é a textura 3 (lava) ou 5 (água). Se sim, desfaz ação, pois não é permitido 
             if(matrizTexturas[currentLinha][currentColuna] == 3 || matrizTexturas[currentLinha][currentColuna] == 5)
             {
                 currentColuna = lCurrentX;
@@ -434,8 +393,6 @@ class CharacterController : public Sprite
             {
                 estaVivo = false;
             }
-
-
 
             // Resetar flags
             keyW = keyA = keyS = keyD = keyQ = keyE = keyZ = keyX = false;
@@ -455,13 +412,9 @@ class CharacterController : public Sprite
                 setTexOffset(offsetS, offsetT);
             }
         }
-
-        float getBackgroundOffsetX() const
-        {
-            return backgroundOffsetX;
-        }
 };
 
+// ==MAIN==
 int main()
 {
     // Inicializa GLFW
@@ -509,33 +462,25 @@ int main()
     // Carrega texturas
     GLuint backgroundTex = loadTexture("../assets/sprites/cave7.png");
     GLuint orcTex = loadTexture("../assets/sprites/orc3_walk_full.png");
-
     GLuint tileTex = loadTexture("../assets/tilesets/tileset2.png");
     GLuint trapOnTex = loadTexture("../assets/tilesets/trapOn.png");
     GLuint trapOffTex = loadTexture("../assets/tilesets/trapOff.png");
-
     GLuint chaveCongeladaTex = loadTexture("../assets/sprites/chaveCongelada.png");
     GLuint chaveLavaTex = loadTexture("../assets/sprites/chaveLava.png");
-
     GLuint cadeadoCongeladoTex = loadTexture("../assets/sprites/cadeadoCongelado.png");
     GLuint cadeadoLavaTex = loadTexture("../assets/sprites/cadeadoLava.png");
-
     GLuint portaFinalTex = loadTexture("../assets/sprites/portaFinal.png");
     GLuint portaFinalFechadaTex = loadTexture("../assets/sprites/portaFinalFechada.png");
 
     // Cria sprites
     Sprite background(quadVAO, backgroundTex, shaderProgram);
     CharacterController orc(quadVAO, orcTex, shaderProgram);
-
     Sprite chaveCongelada(quadVAO, chaveCongeladaTex, shaderProgram);
     Sprite chaveLava(quadVAO, chaveLavaTex, shaderProgram);
-
     Sprite cadeadoCongelado(quadVAO, cadeadoCongeladoTex, shaderProgram);
     Sprite cadeadoLava(quadVAO, cadeadoLavaTex, shaderProgram);
-
     Sprite portaFinal(quadVAO, portaFinalTex, shaderProgram);
     Sprite portaFinalFechada(quadVAO, portaFinalFechadaTex, shaderProgram);
-
     Sprite trapOn(quadVAO, trapOnTex, shaderProgram);
     Sprite trapOff(quadVAO, trapOffTex, shaderProgram);
 
@@ -606,31 +551,20 @@ int main()
     // Ajusta background e personagem
     background.setPosition(WIDTH / 2.0f, HEIGHT / 2.0f);
     background.setScale(WIDTH, HEIGHT);
-
     chaveCongelada.setPosition(440.0f, 420.0f);
     chaveCongelada.setScale(30.0f, 30.0f);
-
     chaveLava.setPosition(520.0f, 220.0f);
     chaveLava.setScale(30.0f, 30.0f);
-
     cadeadoCongelado.setPosition(850.0f, 420.0f);
     cadeadoCongelado.setScale(30.0f, 30.0f);
-
     cadeadoLava.setPosition(850.0f, 390.0f);
     cadeadoLava.setScale(30.0f, 30.0f);
-
     portaFinal.setPosition(800.0f, 405.0f);
     portaFinal.setScale(100.0f, 110.0f);
-
     portaFinalFechada.setPosition(800.0f, 405.0f);
     portaFinalFechada.setScale(100.0f, 110.0f);
-
     trapOn.setScale(40.0f, 20.0f);
-    
-
-    //orc.setPosition(WIDTH / 2.0f, HEIGHT / 2.0f);
     orc.setScale(60.0f, 60.0f);
-    
 
     // Ativar blending
     glEnable(GL_BLEND);
@@ -657,13 +591,10 @@ int main()
         bool keyS = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
         bool keyA = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
         bool keyD = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
-
         bool keyQ = glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS;
         bool keyE = glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS;
         bool keyZ = glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS;
         bool keyX = glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS;
-
-        background.setTexOffset(orc.getBackgroundOffsetX(), 0.0f);
 
         // Limpa tela
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -676,14 +607,11 @@ int main()
 
         if(contadorChave == 2) portaFinal.draw(projection);
         
-
-        //tile.draw(projection);
         for(int row=0; row<15; row++){
             for(int col=0; col<15; col++){
                 tileMatrix[row][col].draw(projection);
             }
         }
-
         
         if (trapActive && elapsed >= 1.0f) {
             trapActive = false;
@@ -719,7 +647,6 @@ int main()
             chaveCongelada.draw(projection);
             cadeadoCongelado.draw(projection);
         }
-
         if(chaveAtiva1)
         {
             chaveLava.draw(projection);
@@ -761,6 +688,7 @@ int main()
     return 0;
 }
 
+// ==FUNÇÕES==
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
     // Fechar janela ao pressionar ESC
@@ -817,7 +745,6 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
             break;
     }
 }
-
 int setupShader()
 {
 	// Vertex shader
@@ -864,7 +791,6 @@ int setupShader()
 
 	return shaderProgram;
 }
-
 GLuint createQuad()
 {
     GLuint VAO, VBO, EBO;
@@ -916,7 +842,6 @@ GLuint createQuad()
 
     return VAO;
 }
-
 GLuint loadTexture(const char* path)
 {
     GLuint textureID;
@@ -933,7 +858,7 @@ GLuint loadTexture(const char* path)
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        // **Alteração para permitir repetição no wrap**
+        // Alteração para permitir repetição no wrap
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
