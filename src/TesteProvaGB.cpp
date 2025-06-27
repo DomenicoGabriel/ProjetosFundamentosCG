@@ -64,16 +64,21 @@ GLuint createQuad(); // --> Criar quadrado
 GLuint loadTexture(const char* path); // --> Carregar textura
 
 // ==VARIÁVEIS E CONSTANTES GLOBAIS==
+// Tamanho da janela
 const GLuint WIDTH = 1000, HEIGHT = 700;
 
+// Movimento do personagem
 bool keyW = false, keyA = false, keyS = false, keyD = false;
 bool keyQ = false, keyE = false, keyZ = false, keyX = false;
 
+// Estado das armadilhas
 bool trapActive = true;
 
 // Configuração do spritesheet:
 int nAnimations = 4; // número de linhas (animações)
 int nFrames = 6;     // número de colunas (frames por animação)
+
+// Tamanho do frame no spritesheet
 float ds = 1.0f / nFrames;
 float dt = 1.0f / nAnimations;
 
@@ -83,8 +88,8 @@ int iFrame = 0;     // frame atual na linha
 float timeSinceLastFrame = 0.0f;
 float frameTime = 1.0f / 12.0f; // controla a velocidade da animação (12 FPS)
 
-// Configuração do tile
-int tileTextures = 7; // número de texturas
+// Número de texturas
+int tileTextures = 7;
 
 // ==MATRIZES==
 // Matriz que armazena a informação das texturas de cada tile
@@ -105,6 +110,8 @@ int matrizTexturas[15][15] = {
     2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2,
     2, 2, 3, 2, 2, 3, 3, 2, 3, 3, 3, 3, 3, 2, 2
 };
+
+// Matriz que armazena a informação de quais tiles possuem armadilhas
 int matrizTraps[15][15] = {
     0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
@@ -141,6 +148,8 @@ int matrizPosX[15][15] = {
     500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780,
     520, 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780, 800
 };
+
+// Matriz que armazena a informação da posição geográfica X de cada arnadilha
 int matrizTrapPosX[5][10] = {
     360, 380, 400, 440, 460, 480, 520, 540, 540, 560,
     440, 480, 580, 600, 340, 400, 420, 600, 620, 440,
@@ -167,6 +176,8 @@ int matrizPosY[15][15] = {
     230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370,
     220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360
 };
+
+// Matriz que armazena a informação da posição geográfica Y de cada arnadilha
 int matrizTrapPosY[5][10] = {
     420, 430, 440, 460, 470, 480, 480, 490, 470, 480,
     400, 400, 450, 460, 310, 340, 350, 440, 450, 340,
@@ -176,27 +187,34 @@ int matrizTrapPosY[5][10] = {
 };
 
 // ==CLASSES==
+// Classe base
 class Sprite
 {
     protected:
+        // Desenhar
         GLuint vao;
         GLuint textureID;
         GLuint shaderID;
 
+        // Controle
         glm::vec2 position;
         glm::vec2 scale;
         float rotation;
 
+        // Direcionam qual parte da imagem a ser usada
         glm::vec2 texOffset = glm::vec2(0.0f, 0.0f);
         glm::vec2 texScale = glm::vec2(1.0f, 1.0f);
 
         // Animação por spritesheet
         int rows = 1, cols = 1;
         int currentFrame = 0;
-        float frameTime = 0.1f; // tempo entre frames
+
+        // Tempo entre frames
+        float frameTime = 0.1f;
         float frameTimer = 0.0f;
 
     public:
+        // Construtores
         Sprite() : position(0.0f), scale(1.0f), rotation(0.0f)
         {}
 
@@ -204,6 +222,7 @@ class Sprite
             : vao(vao), textureID(textureID), shaderID(shaderID),
             position(0.0f), scale(1.0f), rotation(0.0f) {}
 
+        // Inicializa o sprite com dados
         void inicializa(GLuint pVao, GLuint pTextureID, GLuint pShaderID){
             vao = pVao;
             textureID = pTextureID;
@@ -239,6 +258,7 @@ class Sprite
             texScale = glm::vec2(x, y);
         }
 
+        // Configura animação com quantas linhas e colunas vai ter o spritesheet e tempo entre frames
         void setAnimation(int rows, int cols, float frameTime = 0.1f) {
             this->rows = rows;
             this->cols = cols;
@@ -246,6 +266,7 @@ class Sprite
             this->currentFrame = 0;
         }
 
+        // Atualiza o frame atual com base no tempo (deltaTime)
         void updateAnimation(float deltaTime) {
             frameTimer += deltaTime;
             if (frameTimer >= frameTime) {
@@ -253,16 +274,19 @@ class Sprite
                 currentFrame = (currentFrame + 1) % (rows * cols);
             }
         }
-
+        
+        // Desenhar sprite na tela
         void draw(const glm::mat4& projection)
         {
             glUseProgram(shaderID);
 
+            // Aplica transformações
             glm::mat4 model(1.0f);
             model = glm::translate(model, glm::vec3(position, 0.0f));
             model = glm::rotate(model, glm::radians(rotation), glm::vec3(0,0,1));
             model = glm::scale(model, glm::vec3(scale, 1.0f));
-
+            
+            // Passa variáveis para o sahder
             GLint locModel = glGetUniformLocation(shaderID, "model");
             GLint locProjection = glGetUniformLocation(shaderID, "projection");
             GLint locTexOffset = glGetUniformLocation(shaderID, "texOffset");
@@ -280,22 +304,19 @@ class Sprite
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
 
+            // Bind da textura
             glBindVertexArray(vao);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Renderiza objeto
             glBindVertexArray(0);
 
             glUseProgram(0);
         }
 };
+
+// Classe herdada
 class CharacterController : public Sprite
 {
     private:
-        float speed;
-
-        // Fundo
-        float backgroundOffsetX = 0.0f;
-        float backgroundScrollSpeed = 0.1f;
-
         // Animação
         int frameX = 0;
         int frameY = 0;
@@ -307,11 +328,13 @@ class CharacterController : public Sprite
         // Posição inicial na matriz
         int currentLinha = 0, currentColuna = 0;
 
+        // Condição do personagem
         bool estaVivo = true;
 
     public:
+        // Construtor
         CharacterController(GLuint vao, GLuint textureID, GLuint shaderID)
-            : Sprite(vao, textureID, shaderID), speed(100.0f)
+            : Sprite(vao, textureID, shaderID)
         {
             setTexScale(1.0f / maxFrames, 1.0f / totalRows);
         }
@@ -328,52 +351,39 @@ class CharacterController : public Sprite
             return estaVivo;
         }
 
+        // Trata teclas
         void updateMovement()
         {
             int lCurrentX = currentColuna, lCurrentY = currentLinha; // --> Guarda posição antes da checagem do teclado
 
-            /*
-                Matriz foi imaginada na diagonal para facilitar tratamento do movimento do personagem
-            //                [2]
-            //              [1] [5]
-            //            [0] [4] [8]
-            //    Linha0    [3] [7]
-            //      Linha1    [6]
-            //        Linha2
-                
-                Ex:
-                    Estado inicial: matriz[1][1]
-                    Q sobe --> pula da linha 1 para a linha 0, se mantendo na coluna 1 (movimento visual na diagonal)
-                    W sobe direita --> pula da linha 1 para a linha 0, da coluna 1 para a coluna 2 (movimento visual subindo) 
-            */
             if (keyQ) {
                 currentLinha--; // sobe
-                iAnimation = 2;
+                iAnimation = 2; // Olhando para esquerda
             } else if (keyZ) {
                 currentColuna--; // vai para esquerda
-                iAnimation = 2;
+                iAnimation = 2; // Olhando para esquerda
             } else if (keyX) {
                 currentLinha++; // desce
-                iAnimation = 3;
+                iAnimation = 3; // Olhando para direita
             } else if (keyE) {
                 currentColuna++; // vai para direita
-                iAnimation = 3;
+                iAnimation = 3; // Olhando para direita
             } else if (keyA) {
                 currentLinha--;  // sobe
                 currentColuna--; // esquerda
-                iAnimation = 2;
+                iAnimation = 2; // Olhando para esquerda
             } else if (keyW) {
                 currentLinha--;  // sobe
                 currentColuna++; // direita
-                iAnimation = 1;
+                iAnimation = 1; // Olhando para cima
             } else if (keyS) {
                 currentLinha++;  // desce
                 currentColuna--; // esquerda
-                iAnimation = 0;
+                iAnimation = 0; // Olhando para baixa
             } else if (keyD) {
                 currentLinha++;  // desce
                 currentColuna++; // direita
-                iAnimation = 3;
+                iAnimation = 3; // Olhando para direita
             }
 
             // Impedir sair dos limites da matriz
@@ -389,6 +399,7 @@ class CharacterController : public Sprite
                 currentLinha = lCurrentY;
             }
 
+            // Checa se o tile para o qual se moveu possui armadilha e se está ativada. Se sim, condição --> morto
             if(matrizTraps[currentLinha][currentColuna] == 1 && trapActive == true)
             {
                 estaVivo = false;
@@ -398,7 +409,7 @@ class CharacterController : public Sprite
             keyW = keyA = keyS = keyD = keyQ = keyE = keyZ = keyX = false;
         }
 
-
+        // Atualiza frame atual com base no tempo (deltaTime)
         void updateAnimation(float deltaTime)
         {
             timeSinceLastFrame += deltaTime;
@@ -485,7 +496,9 @@ int main()
     Sprite trapOff(quadVAO, trapOffTex, shaderProgram);
 
     int lNumTex;
-    Sprite tileMatrix[15][15]; // Matriz onde os tiles serão criados e armazenados
+
+    // Matriz onde os tiles serão criados e armazenados
+    Sprite tileMatrix[15][15]; 
     for(int row=0; row<15; row++){
         for(int col=0; col<15; col++){
             tileMatrix[row][col].inicializa(quadVAO, tileTex, shaderProgram);
@@ -504,38 +517,26 @@ int main()
         }
     }
 
-    Sprite trapOnMatrix[5][10]; // Matriz onde os tiles serão criados e armazenados
+    // Matriz onde as armadilhas ativadas serão criados e armazenados
+    Sprite trapOnMatrix[5][10];
     for(int row=0; row<5; row++){
         for(int col=0; col<10; col++){
             trapOnMatrix[row][col].inicializa(quadVAO, trapOnTex, shaderProgram);
 
-            // Define fração da textura
-            float texW = 1.0f / 1; // 7 texturas
-            float texH = 1.0f / 1; // Só tem uma linha
-
-            //lNumTex = matrizTexturas[row][col];
-
-            trapOnMatrix[row][col].setTexOffset(0.0f, 0.0f);  // Deslocamento na linha
-            trapOnMatrix[row][col].setTexScale(texW, texH);
+            trapOnMatrix[row][col].setTexScale(1.0f, 1.0f);
 
             trapOnMatrix[row][col].setPosition(matrizTrapPosX[row][col], matrizTrapPosY[row][col]);
             trapOnMatrix[row][col].setScale(40.0f, 20.0f); // Tamanho do quad na tela
         }
     }
 
-    Sprite trapOffMatrix[5][10]; // Matriz onde os tiles serão criados e armazenados
+    // Matriz onde as armadilhas desativadas serão criados e armazenados
+    Sprite trapOffMatrix[5][10]; 
     for(int row=0; row<5; row++){
         for(int col=0; col<10; col++){
             trapOffMatrix[row][col].inicializa(quadVAO, trapOffTex, shaderProgram);
 
-            // Define fração da textura
-            float texW = 1.0f / 1; // 7 texturas
-            float texH = 1.0f / 1; // Só tem uma linha
-
-            //lNumTex = matrizTexturas[row][col];
-
-            trapOffMatrix[row][col].setTexOffset(0.0f, 0.0f);  // Deslocamento na linha
-            trapOffMatrix[row][col].setTexScale(texW, texH);
+            trapOffMatrix[row][col].setTexScale(1.0f, 1.0f);
 
             trapOffMatrix[row][col].setPosition(matrizTrapPosX[row][col], matrizTrapPosY[row][col]);
             trapOffMatrix[row][col].setScale(40.0f, 20.0f); // Tamanho do quad na tela
@@ -548,7 +549,7 @@ int main()
                                       0.0f, static_cast<float>(HEIGHT),
                                       -1.0f, 1.0f);
 
-    // Ajusta background e personagem
+    // Ajusta escala e posição dos sprites
     background.setPosition(WIDTH / 2.0f, HEIGHT / 2.0f);
     background.setScale(WIDTH, HEIGHT);
     chaveCongelada.setPosition(440.0f, 420.0f);
@@ -574,6 +575,7 @@ int main()
     float lastFrameTime = 0.0f;
     float trapStartTime = glfwGetTime();
 
+    // Condição para objetivo
     bool chaveAtiva = true;
     bool chaveAtiva1 = true;
     int contadorChave = 0;
@@ -600,19 +602,21 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Desenha background com offset atualizado
         background.draw(projection);
 
         portaFinalFechada.draw(projection);
 
+        // Desenha porta aberta apenas se já pegou as 2 chaves
         if(contadorChave == 2) portaFinal.draw(projection);
         
+        // Desenha matriz de tiles
         for(int row=0; row<15; row++){
             for(int col=0; col<15; col++){
                 tileMatrix[row][col].draw(projection);
             }
         }
         
+        // Calcula qual armadilha deve ser desenhada por vez
         if (trapActive && elapsed >= 1.0f) {
             trapActive = false;
             trapStartTime = glfwGetTime(); // reinicia tempo
@@ -622,6 +626,7 @@ int main()
             trapStartTime = glfwGetTime(); // reinicia tempo
         }
 
+        // Alterna desenho entre armadilha ativada e desativada
         for(int row=0; row<5; row++){
             for(int col=0; col<10; col++){
                 if (trapActive)
@@ -636,12 +641,14 @@ int main()
         orc.setPosition(matrizPosX[orc.getCurrentLinha()][orc.getCurrentColuna()], matrizPosY[orc.getCurrentLinha()][orc.getCurrentColuna()]+5);
         orc.updateAnimation(deltaTime);
         
+        // Verifica condição do personagem
         if(orc.getEstaVivo() == false)
         {
             cout << "Fim de jogo! Voce pisou em uma armadilha!\n";
         	break;
         }
 
+        // Desenha cadeados e chaves apenas se personagem ainda não as pegou
         if(chaveAtiva)
         {
             chaveCongelada.draw(projection);
@@ -653,6 +660,7 @@ int main()
             cadeadoLava.draw(projection);
         }
 
+        // Verifica se personagem está nos tiles especificos das chaves. Se sim, pega a chave respectiva
         if((orc.getCurrentLinha() == 2) && (orc.getCurrentColuna() == 8 && chaveAtiva))
         {
             chaveAtiva = false;
@@ -664,6 +672,7 @@ int main()
             contadorChave++;
         }
 
+        // Checa se o personagem está nos tiles específicos para a conclusão do jogo e se ambas as chaves foram coletadas
         if(orc.getCurrentLinha() >= 12 && orc.getCurrentColuna() == 14)
         {
             if(contadorChave == 2)
@@ -689,6 +698,7 @@ int main()
 }
 
 // ==FUNÇÕES==
+// Detecta quando telca for pressionada
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
     // Fechar janela ao pressionar ESC
@@ -745,6 +755,8 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
             break;
     }
 }
+
+// Cria vertex e fragment shaders e retorna ID do shader program
 int setupShader()
 {
 	// Vertex shader
@@ -791,6 +803,8 @@ int setupShader()
 
 	return shaderProgram;
 }
+
+// Cria quadrado e retorna VAO
 GLuint createQuad()
 {
     GLuint VAO, VBO, EBO;
@@ -842,6 +856,8 @@ GLuint createQuad()
 
     return VAO;
 }
+
+// Carrega imagem de arquivo, trata e retorna ID da textura
 GLuint loadTexture(const char* path)
 {
     GLuint textureID;
