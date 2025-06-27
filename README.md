@@ -90,5 +90,8 @@ ELEMENTOS UTILIZADOS:
 - Armadilha: gerada pelo ChatGPT
 - Spritesheet do orc utilizado anteriormente (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
 
+LINK PARA A GRAVAÇÃO:  
+https://discord.com/channels/@me/1208914635399503913/1388257900950065376
+
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
