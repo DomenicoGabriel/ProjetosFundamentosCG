@@ -91,7 +91,7 @@ ELEMENTOS UTILIZADOS:
 - Spritesheet do orc utilizado anteriormente (orc3_walk_full): https://craftpix.net/freebies/free-top-down-orc-game-character-pixel-art/
 
 LINK PARA A GRAVAÇÃO:  
-https://discord.com/channels/@me/1208914635399503913/1388257900950065376
+[https://discord.com/channels/@me/1208914635399503913/1388257900950065376](https://asavbrm-my.sharepoint.com/personal/tborsatto_edu_unisinos_br/_layouts/15/stream.aspx?id=%2Fpersonal%2Ftborsatto%5Fedu%5Funisinos%5Fbr%2FDocuments%2FGrava%C3%A7%C3%B5es%2FChamada%20com%20Gabriel%20Montenegro%20Di%20Domenico%2D20250627%5F172541%2DGrava%C3%A7%C3%A3o%20de%20Reuni%C3%A3o%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Eec6b6d53%2D6c5f%2D4e71%2D9b27%2De4fab6837e74&isDarkMode=true)
 
 FEITO POR:  
 Gabriel Montenegro Di Domenico e Thales Roberto da Cunha Borsatto
